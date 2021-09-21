@@ -1,5 +1,6 @@
 class String:
-    #Version 2
+
+#This is a test to see if the thing works in Atom
 
     '''DCS 229 implementation of a version of the built-in str class.
 
