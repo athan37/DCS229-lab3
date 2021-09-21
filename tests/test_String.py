@@ -503,7 +503,7 @@ def test_add_on_empty_String_and_empty_str(empty_string):
 #Thomas formatted on 9/21/2021
 ###################################################
 
-def test_add_on_String_and_other_String(sample_String1, sample_String2):
+def test_add_on_String_and_other_String(sample_String1, sample_String2, sample_string1, sample_string2):
     ''' pytest test that adds 2 String objects
         (1) stores the actual and expected results of the sum
         (2) calls print_test with string version of test, result of the actual
@@ -517,7 +517,7 @@ def test_add_on_String_and_other_String(sample_String1, sample_String2):
     #Thomas on 9/21/2021
     #######################################################
 
-    expected = sample_String1 + sample_String2
+    expected = String(sample_string1 + sample_string2)
     print_test(f"String('{sample_string1}') + String('{sample_string2}')", \
                result = result, expected = expected)
     assert(result == expected)
@@ -530,7 +530,7 @@ def test_add_on_String_and_other_String(sample_String1, sample_String2):
 #Thomas formatted on 9/21/2021
 #########################################
 
-def test_add_on_String_and_other_str(sample_String1, sample_string2):
+def test_add_on_String_and_other_str(sample_String1, sample_string1, sample_string2):
     ''' pytest test that adds a String object to an str object
         (1) stores the actual and expected results of the sum
         (2) calls print_test with string version of test, result of the actual
@@ -544,7 +544,7 @@ def test_add_on_String_and_other_str(sample_String1, sample_string2):
     #Thomas on 9/21/2021
     #######################################################
 
-    expected = sample_String1 + sample_string2
+    expected = String(sample_string1 + sample_string2)
     print_test(f"String('{sample_String1}') + '{sample_string2}'", \
                result = result, expected = expected)
     assert(result == expected)
@@ -605,14 +605,14 @@ def test_substring_from_0_to_0_of_an_empty_string(empty_string):
 #Thomas formatted on 9/21/2021
 ################################
 
-def test_substring_from_3_to_7_of_a_String(sample_String1):
+def test_substring_from_3_to_7_of_a_String(sample_string1):
     ''' pytest test that uses substring on a String object
         (1) stores the actual and expected results of the substring
         (2) calls print_test with string version of test, result of the actual
             test, and expected result
         (3) assert required by pytest
     '''
-    result   = sample_String1.substring(3, 7)
+    result   = String(sample_string1).substring(3, 7)
     expected = String(sample_string1[3:7])
     print_test(f"String('{sample_String1}').substring(3, 7) + '{sample_string1}'", \
                result = result, expected = expected)
