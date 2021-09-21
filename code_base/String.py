@@ -28,7 +28,7 @@ class String:
         - Python 3.10 allows "or" support a la 'String' | str.  To fake this
           support in the presence of < 3.10 versions of Python, we are using
           'String | str' here (rather than the suggested Union['String', str]
-          approach) for convenience and brevity. 
+          approach) for convenience and brevity.
     '''
 
     __slots__ = ('_chars')
@@ -67,6 +67,11 @@ class String:
         #     string_length += 1
         # return string_length
 
+        ####################################################################################################
+        # Are we allowed to just use the len() function here or do we need to get a length without using it?
+        # Thomas on 9/21/2021
+        ####################################################################################################
+
         return len(self._chars)
 
     #####################################################
@@ -94,15 +99,21 @@ class String:
             the same order; False o/w
         '''
 
-        # make sure to allow comparison when other is either String or str
-        otherString = other.__str__() if isinstance(other, String) else other
+        ##############################################################
+        # Changed variable names to snake case for consistency's sake.
+        # Updated wording of some of the comments.
+        # Thomas added on 9/21/2021
+        ##############################################################
 
-        #Compare the number of characters
-        if self.len() != len(otherString): return False
+        # Make sure to allow for comparison when other is either String or str
+        other_string = other.__str__() if isinstance(other, String) else other
 
-        #Bail out when there is a different
+        # Compare the number of characters in each string
+        if self.len() != len(other_string): return False
+
+        # Bail out when there is a different different character
         for index, c in enumerate(self._chars):
-            if otherString[index] != c: return False
+            if other_string[index] != c: return False
 
         return True
 
@@ -120,7 +131,17 @@ class String:
         Raises:
             IndexError: if the index value is invalid relative to String length
         '''
-        pass
+
+        ###########################
+        # Thomas added on 9/21/2021
+        ###########################
+
+        if self.len() == 0:
+            raise IndexError("String is empty")
+        elif index > self.len():
+            raise IndexError("Index out of list range")
+        else:
+            return self._chars[index]
 
     #####################################################
     def __setitem__(self, index: int, char: str) -> None:
@@ -136,7 +157,9 @@ class String:
         Raises:
             IndexError: if the index value is invalid relative to String length
         '''
+
         pass
+
 
     #####################################################
     def __add__(self, other: 'String | str') -> 'String':
@@ -150,14 +173,21 @@ class String:
         Returns:
             a String object represent the concatenation of the two strings
         '''
-        #Create a new string to not modify the current one
-        newCharArray = self._chars[:] #Slice to copy
-        otherString  = other.__str__() if isinstance(other, String) else other #Check instance
-        otherCharArr = [c for c in otherString]
 
-        newCharArray.extend(otherCharArr) 
-        
-        return String(newCharArray)
+        #########################################################################
+        # Changed variable labeling to snake case for consistency's sake. Renamed
+        # some variables for consistency's sake.
+        # Thomas added on 9/21/2021
+        #########################################################################
+
+        #Create a new string to not modify the current one
+        new_char_array = self._chars[:] #Slice to copy
+        other_string  = other.__str__() if isinstance(other, String) else other #Check instance
+        other_char_array = [c for c in other_string]
+
+        new_char_array.extend(other_char_array)
+
+        return String(new_char_array)
 
     #####################################################
     def substring(self, start: int, end: int) -> 'String':
@@ -171,8 +201,15 @@ class String:
         Returns:
             a String object represent the concatenation of the two strings
         '''
-        if start >= end: raise ValueError("Start index cannot be larger or equal to end")
 
-        newChars = self._chars[start : end]
-        #ddads
-        return String("".join(newChars))
+        #################################################################
+        # Changed variable labeling to snake case for consistency's sake.
+        # Edited value error statement slightly.
+        # Thomas added on 9/21/2021
+        #################################################################
+
+        if start >= end: raise ValueError("Start index cannot be larger or equal to end index")
+
+        new_chars = self._chars[start : end]
+
+        return String("".join(new_chars))
