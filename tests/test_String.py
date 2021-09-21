@@ -26,7 +26,6 @@ class print_test:
                        expected = [])
 
     '''
-#I wish github worked 
 
     test_number = 0  # class-level (static) variable to track number of tests
 
@@ -224,12 +223,40 @@ def sample_string2():
     '''
     return "lkfh1p209uwefblkjnrsdflkh1"
 
+###############################################################################
+# Added description of what the fixture actually does, consistent with previous
+# fixtures
+# Thomas added on 9/21/2021
+###############################################################################
+
 @pytest.fixture
 def sample_String1(sample_string1):
+    ''' pytest fixture that creates a String object using sample_string1
+
+    Args:
+        sample_string1: pytest fixture (above) that generates a specific string
+
+    Returns:
+        a String object containing the characters in sample_string1
+    '''
     return String(sample_string1)
+
+###############################################################################
+# Added description of what the fixture actually does, consistent with previous
+# fixtures
+# Thomas added on 9/21/2021
+###############################################################################
 
 @pytest.fixture
 def sample_String2(sample_string2):
+    ''' pytest fixture that creates a String object using sample_string2
+
+    Args:
+        sample_string2: pytest fixture (above) that generates a specific string
+
+    Returns:
+        a String object containing the characters in sample_string2
+    '''
     return String(sample_string2)
 
 # NOTE: you may want/need to define more fixtures (e.g., for length-one
@@ -237,7 +264,9 @@ def sample_String2(sample_string2):
 
 ###############################################################################
 
-# individual pytest unit tests below
+#####################################
+# Testing __init__(self, string: str)
+#####################################
 
 def test_empty_constructor(empty_string):
     ''' pytest test for String construction of an empty string
@@ -266,8 +295,12 @@ def test_basic_constructor(random_string):
     assert(result == expected)
 
 ##############################################################################
-##############################################################################
-def test_simple_string_conversion(simple_random_string):
+
+###################################
+#Testing __str__(self, string: str)
+###################################
+
+def test_conversion_on_simple_string(simple_random_string):
     ''' pytest test for str conversion of a random simple String object
         (1) stores the actual and expected results of the conversion
         (2) calls print_test with string version of test, result of the actual
@@ -280,7 +313,7 @@ def test_simple_string_conversion(simple_random_string):
                result = result, expected = expected)
     assert(result == expected)
 
-def test_complex_string_conversion(random_string):
+def test_conversion_on_random_string(random_string):
     ''' pytest test for str conversion of a random String object
         (1) stores the actual and expected results of the conversion
         (2) calls print_test with string version of test, result of the actual
@@ -293,7 +326,7 @@ def test_complex_string_conversion(random_string):
                result = result, expected = expected)
     assert(result == expected)
 
-def test_empty_string_conversion(empty_string):
+def test_conversion_on_empty_string(empty_string):
     ''' pytest test for str conversion of an empty String object
         (1) stores the actual and expected results of the conversion
         (2) calls print_test with string version of test, result of the actual
@@ -308,7 +341,11 @@ def test_empty_string_conversion(empty_string):
 
 ##############################################################################
 
-def test_random_string_length(random_string):
+###################
+# Testing len(self)
+###################
+
+def test_length_on_random_string(random_string):
     ''' pytest test for returning the length of a random String object
         (1) stores the actual and expected results of the length
         (2) calls print_test with string version of test, result of the actual
@@ -321,7 +358,7 @@ def test_random_string_length(random_string):
                result = result, expected = expected)
     assert(result == expected)
 
-def test_empty_string_length(empty_string):
+def test_length_on_empty_string(empty_string):
     ''' pytest test for returning the length of an empty String object
         (1) stores the actual and expected results of the length
         (2) calls print_test with string version of test, result of the actually
@@ -336,7 +373,11 @@ def test_empty_string_length(empty_string):
 
 ##############################################################################
 
-def test_empty_string(empty_string):
+#######################
+#Testing is_empty(self)
+#######################
+
+def test_is_empty_on_empty_string(empty_string):
     ''' pytest test to determine whether or not a String is empty and return
         a boolean indicating the case
         (1) stores the actual and expected results of the equality
@@ -350,7 +391,7 @@ def test_empty_string(empty_string):
                result = result, expected = expected)
     assert(result == expected)
 
-def test_empty_random_string(random_string):
+def test_is_empty_on_random_string(random_string):
     ''' pytest test to determine whether or not a String is empty and return
         boolean indicating the case
         (1) stores the actual and expected results of the equality
@@ -364,7 +405,13 @@ def test_empty_random_string(random_string):
                result = result, expected = expected)
     assert(result == expected)
 
-def test_simple_random_string_equal(sample_string1, sample_string2):
+##############################################################################
+
+############################################
+#Testing __eq__(self, other: 'String | str')
+############################################
+
+def test_is_equal_on_predetermined_String(sample_String1, sample_String2):
     ''' pytest test to determine whether two str objects are equal
         (1) stores the actual and expected results of the equality
         (2) calls print_test with string version of test, result of the actual
@@ -372,101 +419,176 @@ def test_simple_random_string_equal(sample_string1, sample_string2):
         (3) assert required by pytest
     '''
 
-    result   = sample_string1 == sample_string2
+    ##########################################
+    # Fixed code that intially was not working
+    # Thomas on 9/21/2021
+    ##########################################
+
+    result = sample_String1 == sample_String2
     expected = False
-
-    try:
-        #There is some problem here
-        print_test(f"{sample_string1} == {sample_string2}",\
-                result = result, expected = expected)
-    except Exception as e: 
-        print(e)
-
+    print_test(f"String({sample_String1}) == String({sample_String2})", \
+               result = result, expected = expected)
     assert(result == expected)
 
-##############################################################################  Duc Anh's change 9/20/2021 ###############
+###########################
+# Thomas added on 9/21/2021
+###########################
 
-#Test equal
-def test_empty_str_equals_empty_String(empty_string):
-    ''' Test if an empty string from class String equals to that from class 'str'. 
-    
+def test_is_equal_on_predetermined_string(sample_string1, sample_String2):
+    ''' pytest test to determine whether two str objects are equal
         (1) stores the actual and expected results of the equality
         (2) calls print_test with string version of test, result of the actual
             test, and expected result
         (3) assert required by pytest
     '''
-    result   = String(empty_string) == empty_string 
+    result = sample_string1 == sample_string2
+    expected = False
+    print_test(f"String({sample_string1}) == String({sample_string2})", \
+               result = result, expected = expected)
+    assert(result == expected)
+
+##############################
+#Duc Anh added on 9/20/2021
+#Thomas formatted on 9/21/2021
+##############################
+
+def test_is_equal_on_empty_str_and_empty_String(empty_string):
+    ''' pytest test to see if an empty string from class String equals
+        an empty string from class 'str'
+        (1) stores the actual and expected results of the equality
+        (2) calls print_test with string version of test, result of the actual
+            test, and expected result
+        (3) assert required by pytest
+    '''
+    result   = String(empty_string) == empty_string
     expected = True
     print_test(f"String({empty_string}) == {empty_string}", \
                result = result, expected = expected)
     assert(result == expected)
 
+##############################################################################
 
-#Test add string
+#############################################
+#Testing __add__(self, other: 'String | str')
+#############################################
 
-def test_add_empty_String_to_empty_str(empty_string):
-    ''' Test adding 2 empty normal python string
 
-        (1) stores the actual and expected results of the equality
+################################
+#Duc Anh added on 9/20/2021
+#This is giving an error message
+#even though the test is passing
+#Thomas formatted on 9/21/2021
+################################
+
+def test_add_on_empty_String_and_empty_str(empty_string):
+    ''' pytest test that adds an empty String object to an
+        empty str object
+        (1) stores the actual and expected results of the sum
         (2) calls print_test with string version of test, result of the actual
             test, and expected result
         (3) assert required by pytest
     '''
-    result   = String(empty_string) + ''
-    expected = String(empty_string) 
+    result = String(empty_string) + ''
+    expected = String(empty_string)
     print_test(f"String('{empty_string}') + '' ",\
             result = result, expected = expected)
 
     assert(result == expected)
 
-def test_add_normal_String_to_other_String(sample_string1, sample_string2):
-    ''' Test adding 2 normal string 
-    
-        (1) stores the actual and expected results of the equality
+###################################################
+#Duc Anh added on 9/20/2021
+#Changed variables to sample_String1/sample_String2
+#This is giving an error message even though
+#test is passing
+#Thomas formatted on 9/21/2021
+###################################################
+
+def test_add_on_String_and_other_String(sample_String1, sample_String2):
+    ''' pytest test that adds 2 String objects
+        (1) stores the actual and expected results of the sum
         (2) calls print_test with string version of test, result of the actual
             test, and expected result
         (3) assert required by pytest
     '''
-    result   = String(sample_string1) + String(sample_string2)
-    expected = String(sample_string1 + sample_string2)
+    result   = sample_String1 + sample_String2
+
+    #######################################################
+    #Does the expected result need to be entered literally?
+    #Thomas on 9/21/2021
+    #######################################################
+
+    expected = sample_String1 + sample_String2
     print_test(f"String('{sample_string1}') + String('{sample_string2}')", \
                result = result, expected = expected)
     assert(result == expected)
 
-def test_add_normal_String_to_other_str(sample_string1, sample_string2):
-    ''' Test adding 2 normal string 
-    
-        (1) stores the actual and expected results of the equality
+#########################################
+#Duc Anh added on 9/20/2021
+#Changed sample_string1 to sample_String1
+#This is giving an error message even
+#though test is pasing
+#Thomas formatted on 9/21/2021
+#########################################
+
+def test_add_on_String_and_other_str(sample_String1, sample_string2):
+    ''' pytest test that adds a String object to an str object
+        (1) stores the actual and expected results of the sum
         (2) calls print_test with string version of test, result of the actual
             test, and expected result
         (3) assert required by pytest
     '''
-    result   = String(sample_string1) + sample_string2
-    expected = String(sample_string1 + sample_string2)
-    print_test(f"String('{sample_string1}') + '{sample_string2}'", \
+    result   = sample_String1 + sample_string2
+
+    #######################################################
+    #Does the expected result need to be entered literally?
+    #Thomas on 9/21/2021
+    #######################################################
+
+    expected = sample_String1 + sample_string2
+    print_test(f"String('{sample_String1}') + '{sample_string2}'", \
                result = result, expected = expected)
     assert(result == expected)
 
-def test_add_normal_String_to_an_empty_str(sample_string1, empty_string):
-    ''' Test adding a String with an empty str
-    
-        (1) stores the actual and expected results of the equality
+#################################################
+#Duc Anh added on 9/20/2021
+#Changed sample_string1 to sample_String1
+#Fixed mistake in print_test() where
+#sample_string2 was used instead of empty_string
+#This is giving an error message even though
+#test is passing
+#Thomas formatted on 9/21/2021
+#################################################
+
+def test_add_on_String_and_empty_str(sample_String1, empty_string):
+    ''' pytest test that adds a String object to an empty str object
+        (1) stores the actual and expected results of the sum
         (2) calls print_test with string version of test, result of the actual
             test, and expected result
         (3) assert required by pytest
     '''
-    result   = String(sample_string1) + empty_string
-    expected = String(sample_string1)
-    print_test(f"String('{sample_string1}') + '{sample_string2}'", \
+    result   = sample_String1 + empty_string
+    expected = sample_String1
+    print_test(f"String('{sample_string1}') + '{empty_string}'", \
                result = result, expected = expected)
     assert(result == expected)
 
-#Test substring
+##############################################################################
+
+##############################################
+#Testing substring(self, start: int, end: int)
+##############################################
+
+
+################################
+#Duc Anh added on 9/20/2021
+#This is giving an error message
+#even though the test is passing
+#Thomas formatted on 9/21/2021
+################################
 
 def test_substring_from_0_to_0_of_an_empty_string(empty_string):
-    ''' Test substring on empty string
-    
-        (1) stores the actual and expected results of the equality
+    ''' pytest test that uses substring on an empty str object
+        (1) stores the actual and expected results of the substring
         (2) calls print_test with string version of test, result of the actual
             test, and expected result
         (3) assert required by pytest
@@ -477,70 +599,105 @@ def test_substring_from_0_to_0_of_an_empty_string(empty_string):
                result = result, expected = expected)
     assert(result == expected)
 
-def test_substring_normally(sample_String1, sample_string1):
-    ''' Test substring on empty string
-    
-        (1) stores the actual and expected results of the equality
+################################
+#Duc Anh added on 9/20/2021
+#This will not run
+#Thomas formatted on 9/21/2021
+################################
+
+def test_substring_from_3_to_7_of_a_String(sample_String1):
+    ''' pytest test that uses substring on a String object
+        (1) stores the actual and expected results of the substring
         (2) calls print_test with string version of test, result of the actual
             test, and expected result
         (3) assert required by pytest
     '''
-
     result   = sample_String1.substring(3, 7)
-    expected = String(sample_string1[3: 7])
-
+    expected = String(sample_string1[3:7])
     print_test(f"String('{sample_String1}').substring(3, 7) + '{sample_string1}'", \
                result = result, expected = expected)
     assert(result == expected)
 
-def test_substring_start_larger_than_end(random_string):
-    ''' Test substring if start is larger than end
-    
-        (1) stores the actual and expected results of the equality
+##############################
+#Duc Anh added on 9/20/2021
+#Thomas formatted on 9/21/2021
+##############################
+
+def test_substring_start_larger_than_end_with_random_string(random_string):
+    ''' pytest test that uses substring when start is larger than end
+        (1) stores the actual and expected results of the substring
         (2) calls print_test with string version of test, result of the actual
             test, and expected result
         (3) assert required by pytest
     '''
-
     with pytest.raises(ValueError) as exception_info:
         String(random_string).substring(7, 3) #This should produce value error
     result   = type(exception_info.value)   # if correct, result should be IndexError
     expected = ValueError
-
     print_test(f"String('{sample_String1}').substring(3, 7) + '{sample_string1}'", \
             result = result, expected = expected)
     assert(result == expected)
 
-
 ##############################################################################
 ##############################################################################
 
-##############################################################################
-# this test gives an example of how to look for accessing-element exceptions
-#
-# def test_getitem_first_on_empty_String(empty_string):
-#     ''' pytest test for accessing [0] entry in an empty string
-#         (1) uses 'with pytest.raises' to look for appropriate raised exception,
-#             which is raised by the indented code
-#         (2) stores the type of the value of the raised exception
-#         (3) calls print_test with string version of test, result of the actual
-#             test, and expected result
-#         (3) assert required by pytest
-#     '''
-#     with pytest.raises(IndexError) as exception_info:
-#         String(empty_string)[0]             # this should raise an IndexError
-#     result   = type(exception_info.value)   # if correct, result should be IndexError
-#     expected = IndexError
-#     print_test(f'String("{empty_string}")[0]', \
-#                result = result, expected = expected)
-#     assert(result == expected)
+##########################
+#Thomas added on 9/21/2021
+##########################
 
 ##############################################################################
-##############################################################################
 
-# plenty more tests go here...
+######################################
+#Testing __getitem__(self, index: int)
+######################################
 
-##############################################################################
+def test_getitem_first_on_empty_String(empty_string):
+    ''' pytest test for accessing [0] entry in an empty string
+        (1) uses 'with pytest.raises' to look for appropriate raised exception,
+            which is raised by the indented code
+        (2) stores the type of the value of the raised exception
+        (3) calls print_test with string version of test, result of the actual
+            test, and expected result
+        (3) assert required by pytest
+    '''
+    with pytest.raises(IndexError) as exception_info:
+        String(empty_string)[0]             # this should raise an IndexError
+    result   = type(exception_info.value)   # if correct, result should be IndexError
+    expected = IndexError
+    print_test(f'String("{empty_string}")[0]', \
+               result = result, expected = expected)
+    assert(result == expected)
+
+def test_getitem_out_of_range_on_random_String(random_string):
+    ''' pytest test for accessing [21] entry in a random string
+        (1) uses 'with pytest.raises' to look for appropriate raised exception,
+            which is raised by the indented code
+        (2) stores the type of the value of the raised exception
+        (3) calls print_test with string version of test, result of the actual
+            test, and expected result
+        (4) assert required by pytest
+    '''
+    with pytest.raises(IndexError) as exception_info:
+        String(random_string)[21]
+    result   = type(exception_info.value)
+    expected = IndexError
+    print_test(f'String("{random_string}")[21]', \
+               result = result, expected = expected)
+    assert(result == expected)
+
+def test_getitem_first_on_simple_String(sample_String1):
+    ''' pytest test for accessing [0] entry in a random string
+        (1) stores the actual and expected results for the first item
+        (2) calls print_test with string version of test, result of the actual
+            test, and expected result
+        (3) assert required by pytest
+    '''
+    result = sample_String1[0]
+    expected = '1'
+    print_test(f"String('{sample_string1}')[0]", \
+               result = result, expected = expected)
+    assert(result == expected)
+
 ##############################################################################
 
 ##############################################################################
@@ -570,4 +727,4 @@ def test_substring_start_larger_than_end(random_string):
 # plenty more tests go here...
 
 ##############################################################################
-##############################################################################
+############################################################################################################################################################
