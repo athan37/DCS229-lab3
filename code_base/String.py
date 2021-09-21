@@ -1,4 +1,6 @@
 class String:
+    #Version 2
+
     '''DCS 229 implementation of a version of the built-in str class.
 
     This class implements a simple version corresponding to the str class,
