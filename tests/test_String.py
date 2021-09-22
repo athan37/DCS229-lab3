@@ -260,6 +260,10 @@ def sample_String2(sample_string2):
     '''
     return String(sample_string2)
 
+@pytest.fixture
+def string_from_0_to_9():
+    return "0123456789"
+
 # NOTE: you may want/need to define more fixtures (e.g., for length-one
 #   strings?).
 
@@ -621,25 +625,50 @@ def test_substring_from_3_to_7_of_a_String(sample_string1):
                result = result, expected = expected)
     assert(result == expected)
 
-##############################
-#Duc Anh added on 9/20/2021
-#Thomas formatted on 9/21/2021
-##############################
 
-def test_substring_start_larger_than_end_with_random_string(random_string):
-    ''' pytest test that uses substring when start is larger than end
+def test_substring_from_minus_3_to_minus_7_of_a_String(string_from_0_to_9):
+    ''' pytest test that uses substring on a String object
         (1) stores the actual and expected results of the substring
         (2) calls print_test with string version of test, result of the actual
             test, and expected result
         (3) assert required by pytest
     '''
-    with pytest.raises(ValueError) as exception_info:
-        String(random_string).substring(7, 3) #This should produce value error
-    result   = type(exception_info.value)   # if correct, result should be IndexError
-    expected = ValueError
-    print_test(f"String('{sample_String1}').substring(3, 7) + '{sample_string1}'", \
-            result = result, expected = expected)
+    result   = String(string_from_0_to_9).substring(-3, -7)
+    expected = String("6543")
+    print_test(f"String('{sample_string1}').substring(-7, -3)", result = result, expected = expected)
     assert(result == expected)
+
+def test_substring_from_minus_7_to_minus_3_of_a_String(string_from_0_to_9):
+    ''' pytest test that uses substring on a String object
+        (1) stores the actual and expected results of the substring
+        (2) calls print_test with string version of test, result of the actual
+            test, and expected result
+        (3) assert required by pytest
+    '''
+    result   = String(string_from_0_to_9).substring(-7, -3)
+    expected = String("3456")
+    print_test(f"String('{string_from_0_to_9}').substring(-7, -3)", result = result, expected = expected)
+    assert(result == expected)
+
+# ##############################
+# #Duc Anh added on 9/20/2021
+# #Thomas formatted on 9/21/2021
+# ##############################
+
+# def test_substring_start_larger_than_end_with_random_string(random_string):
+#     ''' pytest test that uses substring when start is larger than end
+#         (1) stores the actual and expected results of the substring
+#         (2) calls print_test with string version of test, result of the actual
+#             test, and expected result
+#         (3) assert required by pytest
+#     '''
+#     with pytest.raises(ValueError) as exception_info:
+#         String(random_string).substring(7, 3) #This should produce value error
+#     result   = type(exception_info.value)   # if correct, result should be IndexError
+#     expected = ValueError
+#     print_test(f"String('{sample_String1}').substring(3, 7) + '{sample_string1}'", \
+#             result = result, expected = expected)
+#     assert(result == expected)
 
 ##############################################################################
 ##############################################################################

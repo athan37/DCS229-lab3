@@ -157,7 +157,7 @@ class String:
         Raises:
             IndexError: if the index value is invalid relative to String length
         '''
-        if (self.len()) < index:
+        if self.len() < index:
             raise IndexError("Index value invalid relative to string length")
         else:
             self._chars[index] = char
@@ -188,15 +188,18 @@ class String:
 
         new_char_array.extend(other_char_array)
 
-        print("Im inside")
-
         return String(new_char_array)
 
     #####################################################
     def substring(self, start: int, end: int) -> 'String':
-        ''' overrides the __add__ special method, allowing one to add
-            (concatenate) two String objects, or to concatenate an str object
-            to a String object; this String and other should remain unchanged
+        ''' 
+
+        Return the String object that represents the sub-string of the curernt String object. 
+
+        The start and end can be NEGATIVE value, it will obey the rule from python array slicing
+
+        Ex: given a string a = String("1234578"), if we call
+        a.substring(-1, -3), it will return String("87")
 
         Args:
             other: a String or str object to append to this String
@@ -211,8 +214,16 @@ class String:
         # Thomas added on 9/21/2021
         #################################################################
 
-        if start >= end: raise ValueError("Start index cannot be larger or equal to end index")
+        #Allow reverse order
+        # if start >= end: raise ValueError("Start index cannot be larger or equal to end index")
+        chars = self._chars
+        new_chars = chars[start:end]
 
-        new_chars = self._chars[start : end]
+        if start < 0 and end < 0:
+            #Handle case like -3 to -1
+            #By switching the end and start and 
+            #take the reverse of that array
+            if start > end:
+                new_chars = reversed(chars[end: start])
 
         return String("".join(new_chars))
