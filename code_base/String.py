@@ -1,7 +1,4 @@
 class String:
-
-#This is a test to see if the thing works in Atom
-
     '''DCS 229 implementation of a version of the built-in str class.
 
     This class implements a simple version corresponding to the str class,
@@ -160,9 +157,10 @@ class String:
         Raises:
             IndexError: if the index value is invalid relative to String length
         '''
-
-        pass
-
+        if (self.len()) < index:
+            raise IndexError("Index value invalid relative to string length")
+        else:
+            self._chars[index] = char
 
     #####################################################
     def __add__(self, other: 'String | str') -> 'String':

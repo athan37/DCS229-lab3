@@ -699,32 +699,70 @@ def test_getitem_first_on_simple_String(sample_String1):
     assert(result == expected)
 
 ##############################################################################
-
-##############################################################################
-# this test gives an example of how to look for modifiying-element exceptions
-#
-# def test_setitem_first_on_empty_String(empty_string):
-#     ''' pytest test for setting [0] entry in an empty string
-#         (1) uses 'with pytest.raises' to look for appropriate raised exception,
-#             which is raised by the indented code
-#         (2) stores the type of the value of the raised exception
-#         (3) calls print_test with string version of the test, result of the
-#             actual test, and expected result
-#         (3) assert required by pytest
-#     '''
-#     string = String(empty_string)  # first need a construction...
-#     with pytest.raises(IndexError) as exception_info:
-#         string[0] = '❤'            # this should raise an IndexError
-#     result   = type(exception_info.value)
-#     expected = IndexError
-#     print_test(f'String("{empty_string}")[0] = \'❤\'', \
-#                result = result, expected = expected)
-#     assert(result == expected)
-
-##############################################################################
 ##############################################################################
 
-# plenty more tests go here...
+##################################
+#Thomas added for Max on 9/21/2021
+##################################
+
+##############################################################################
+
+#################################################
+#Testing __setitem__(self, index: int, char: str)
+#################################################
+
+def test_setitem_first_on_empty_String(empty_string):
+    ''' pytest test for setting [0] entry in an empty string
+        (1) uses 'with pytest.raises' to look for appropriate raised exception,
+            which is raised by the indented code
+        (2) stores the type of the value of the raised exception
+        (3) calls print_test with string version of the test, result of the
+            actual test, and expected result
+        (3) assert required by pytest
+    '''
+    string = String(empty_string)  # first need a construction...
+    with pytest.raises(IndexError) as exception_info:
+        string[0] = '❤'            # this should raise an IndexError
+    result   = type(exception_info.value)
+    expected = IndexError
+    print_test(f'String("{empty_string}")[0] = \'❤\'', \
+               result = result, expected = expected)
+    assert(result == expected)
+
+def test_setitem_second_on_String(sample_String1):
+    ''' pytest test for setting [0] entry in an empty string
+        (1) uses 'with pytest.raises' to look for appropriate raised exception,
+            which is raised by the indented code
+        (2) stores the type of the value of the raised exception
+        (3) calls print_test with string version of the test, result of the
+            actual test, and expected result
+        (3) assert required by pytest
+    '''
+    string = sample_String1  # first need a construction...
+    string[2] = '$'
+    result = string
+    expected = "1h$2beropijsdf"
+    print_test(f'String("{empty_string}")[2] = \'$\'', \
+            result = result, expected = expected)
+    assert(result == expected)
+
+def test_setitem_firt_on_index_value_greater_than_String(sample_String2):
+    ''' pytest test for setting [0] entry in an empty string
+        (1) uses 'with pytest.raises' to look for appropriate raised exception,
+            which is raised by the indented code
+        (2) stores the type of the value of the raised exception
+        (3) calls print_test with string version of the test, result of the
+            actual test, and expected result
+        (4) assert required by pytest
+    '''
+    string = sample_String2  # first need a construction...
+    with pytest.raises(IndexError) as exception_info:
+        string[27] = '&'            # this should raise an IndexError
+    result   = type(exception_info.value)
+    expected = IndexError
+    print_test(f'String("{empty_string}")[27] = \'&\'', \
+            result = result, expected = expected)
+    assert(result == expected)
 
 ##############################################################################
 ############################################################################################################################################################
