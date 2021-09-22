@@ -763,6 +763,3 @@ def test_setitem_firt_on_index_value_greater_than_String(sample_String2):
     print_test(f'String("{empty_string}")[27] = \'&\'', \
             result = result, expected = expected)
     assert(result == expected)
-
-##############################################################################
-############################################################################################################################################################
