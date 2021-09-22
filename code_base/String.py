@@ -188,6 +188,8 @@ class String:
 
         new_char_array.extend(other_char_array)
 
+        print("Im inside")
+
         return String(new_char_array)
 
     #####################################################

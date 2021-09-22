@@ -89,6 +89,7 @@ class print_test:
 
         try:
             if isinstance(result, String): result = result.__str__()
+            if isinstance(expected, String): expected = expected.__str__()
             assert(type(result) == type(expected))
         except:
             # if the provided result and expected mismatch in type,
@@ -490,6 +491,8 @@ def test_add_on_empty_String_and_empty_str(empty_string):
     '''
     result = String(empty_string) + ''
     expected = String(empty_string)
+
+    print("Result type", type(result), "Expected type:", type(expected)) 
     print_test(f"String('{empty_string}') + '' ",\
             result = result, expected = expected)
 
