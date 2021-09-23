@@ -1,4 +1,5 @@
 class String:
+    #
     '''DCS 229 implementation of a version of the built-in str class.
 
     This class implements a simple version corresponding to the str class,
@@ -192,9 +193,9 @@ class String:
 
     #####################################################
     def substring(self, start: int, end: int) -> 'String':
-        ''' 
+        '''
 
-        Return the String object that represents the sub-string of the curernt String object. 
+        Return the String object that represents the sub-string of the curernt String object.
 
         The start and end can be NEGATIVE value, it will obey the rule from python array slicing
 
@@ -221,7 +222,7 @@ class String:
 
         if start < 0 and end < 0:
             #Handle case like -3 to -1
-            #By switching the end and start and 
+            #By switching the end and start and
             #take the reverse of that array
             if start > end:
                 new_chars = reversed(chars[end: start])

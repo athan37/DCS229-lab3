@@ -312,9 +312,9 @@ def test_conversion_on_simple_string(simple_random_string):
             test, and expected result
         (3) assert required by pytest
     '''
-    result = simple_random_string
+    result = str(String(simple_random_string))
     expected = simple_random_string
-    print_test(f"str({simple_random_string})", \
+    print_test(f"str(String({simple_random_string}))", \
                result = result, expected = expected)
     assert(result == expected)
 
@@ -325,9 +325,9 @@ def test_conversion_on_random_string(random_string):
             test, and expected result
         (3) assert required by pytest
     '''
-    result = str(random_string)
+    result = str(String(random_string))
     expected = random_string
-    print_test(f"str({random_string})", \
+    print_test(f"str(String({random_string}))", \
                result = result, expected = expected)
     assert(result == expected)
 
@@ -338,9 +338,9 @@ def test_conversion_on_empty_string(empty_string):
             test, and expected result
         (3) assert required by pytest
     '''
-    result = str(empty_string)
+    result = str(String(empty_string))
     expected = empty_string
-    print_test(f"str({empty_string})", \
+    print_test(f"str(String({empty_string}))", \
                result = result, expected = expected)
     assert(result == expected)
 
@@ -496,7 +496,7 @@ def test_add_on_empty_String_and_empty_str(empty_string):
     result = String(empty_string) + ''
     expected = String(empty_string)
 
-    print("Result type", type(result), "Expected type:", type(expected)) 
+    print("Result type", type(result), "Expected type:", type(expected))
     print_test(f"String('{empty_string}') + '' ",\
             result = result, expected = expected)
 
