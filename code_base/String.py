@@ -218,13 +218,29 @@ class String:
         #Allow reverse order
         # if start >= end: raise ValueError("Start index cannot be larger or equal to end index")
         chars = self._chars
-        new_chars = chars[start:end]
+        new_chars = []
 
-        if start < 0 and end < 0:
-            #Handle case like -3 to -1
-            #By switching the end and start and
-            #take the reverse of that array
-            if start > end:
-                new_chars = reversed(chars[end: start])
+        if start > 0 and end > 0:
+            if start >= end: raise ValueError("Start index cannot be larger or equal to end index")
+            else:
+                new_chars.append(chars[start:end])
+        elif start < 0 and end < 0:
+            if start <= end:
+                raise ValueError("Start index cannot be larger or equal to end index")
+            else:
+                new_chars.append(reversed(chars[end: start]))
+        else:
+            pass #We need to consider the case when start and end have different signs
 
-        return String("".join(new_chars))
+        return String("".join(new_chars[0:len(new_chars)]))
+
+
+        # if start < 0 and end < 0:
+        #     if start <= end:
+        #         raise ValueError("Start index cannot be larger or equal to end index")
+        #     else:
+        #     #Handle case like -3 to -1 by switching the end and start and take the reverse of that array
+        #         if start > end:
+        #             new_chars = reversed(chars[end: start])
+        #
+        # return String("".join(new_chars))

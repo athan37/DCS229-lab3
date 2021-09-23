@@ -778,7 +778,7 @@ def test_setitem_second_on_String(sample_String1):
             result = result, expected = expected)
     assert(result == expected)
 
-def test_setitem_firt_on_index_value_greater_than_String(sample_String2):
+def test_setitem_first_on_index_value_greater_than_String(sample_String2):
     ''' pytest test for setting [0] entry in an empty string
         (1) uses 'with pytest.raises' to look for appropriate raised exception,
             which is raised by the indented code
