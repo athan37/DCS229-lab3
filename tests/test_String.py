@@ -1,3 +1,15 @@
+'''This is a document that contains various tests of the methods
+   written in the String.py document. The use of pytest and pytest
+   fixtures helps make the process run more efficiently.
+
+Authors: Anh Than      (athan@bates.edu)
+         Thomas Costin (tcostin@bates.edu)
+         Max MacAvoy   (mmacavoy@bates.edu)
+
+Published: 24 Sep 2021
+
+'''
+
 from code_base.String import *
 import pytest
 import random
@@ -224,12 +236,6 @@ def sample_string2():
     '''
     return "lkfh1p209uwefblkjnrsdflkh1"
 
-###############################################################################
-# Added description of what the fixture actually does, consistent with previous
-# fixtures
-# Thomas added on 9/21/2021
-###############################################################################
-
 @pytest.fixture
 def sample_String1(sample_string1):
     ''' pytest fixture that creates a String object using sample_string1
@@ -396,7 +402,7 @@ def test_is_empty_on_empty_string(empty_string):
 
 def test_is_empty_on_random_string(random_string):
     ''' pytest test to determine whether or not a String is empty and return
-        boolean indicating the case
+        a boolean indicating the case
         (1) stores the actual and expected results of the equality
         (2) calls print_test with string version of test, result of the actual
             test, and expected result
@@ -421,21 +427,11 @@ def test_is_equal_on_predetermined_String(sample_String1, sample_String2):
             test, and expected result
         (3) assert required by pytest
     '''
-
-    ##########################################
-    # Fixed code that intially was not working
-    # Thomas on 9/21/2021
-    ##########################################
-
     result = sample_String1 == sample_String2
     expected = False
     print_test(f"String({sample_String1}) == String({sample_String2})", \
                result = result, expected = expected)
     assert(result == expected)
-
-###########################
-# Thomas added on 9/21/2021
-###########################
 
 def test_is_equal_on_predetermined_string(sample_string1, sample_String2):
     ''' pytest test to determine whether two str objects are equal
@@ -449,11 +445,6 @@ def test_is_equal_on_predetermined_string(sample_string1, sample_String2):
     print_test(f"String({sample_string1}) == String({sample_string2})", \
                result = result, expected = expected)
     assert(result == expected)
-
-##############################
-#Duc Anh added on 9/20/2021
-#Thomas formatted on 9/21/2021
-##############################
 
 def test_is_equal_on_empty_str_and_empty_String(empty_string):
     ''' pytest test to see if an empty string from class String equals
@@ -574,7 +565,11 @@ def test_substring_from_minus_7_to_minus_3_of_a_String(string_from_0_to_9):
 
 
 def test_substring_from_minus_3_to_minus_3_of_a_String(random_string):
-    ''' pytest test that uses 
+    ''' pytest test that uses substring on a String object
+        (1) stores the actual and expected results of the substring
+        (2) calls print_test with string version of test, result of the
+            actual test, and expected result
+        (3) assert required by pytest
     '''
     result = String(random_string).substring(-3,-4)
     expected = ""
@@ -582,8 +577,7 @@ def test_substring_from_minus_3_to_minus_3_of_a_String(random_string):
                result = result, expected = expected)
     assert(result == expected)
 
-##############################################################################
-##############################################################################
+##############################################################################c
 
 ######################################
 #Testing __getitem__(self, index: int)
@@ -652,7 +646,6 @@ def test_getitem_first_on_simple_String(sample_String1):
     assert(result == expected)
 
 ##############################################################################
-##############################################################################
 
 #################################################
 #Testing __setitem__(self, index: int, char: str)
@@ -694,7 +687,7 @@ def test_setitem_second_on_String(sample_String1):
     assert(result == expected)
 
 def test_setitem_firt_on_index_value_greater_than_String(sample_String2):
-    ''' pytest test for setting [0] entry in an empty string
+    ''' pytest test for index value greater than String length
         (1) uses 'with pytest.raises' to look for appropriate raised exception,
             which is raised by the indented code
         (2) stores the type of the value of the raised exception

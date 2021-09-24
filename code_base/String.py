@@ -1,5 +1,4 @@
 class String:
-    #
     '''DCS 229 implementation of a version of the built-in str class.
 
     This class implements a simple version corresponding to the str class,
@@ -15,6 +14,13 @@ class String:
         __add__    : returns a new String object that is the concatenation of
                         this String object and a given String or str object
         substring  : returns a new String object by specifying substring indices
+
+
+        Authors: Anh Than      (athan@bates.edu)
+                 Thomas Costin (tcostin@bates.edu)
+                 Max MacAvoy   (mmacavoy@bates.edu)
+
+        Published: 24 Sep 2021
     '''
 
     ''' Notes on type hints below:
@@ -53,7 +59,7 @@ class String:
         Returns:
             an str version of the String object contents
         '''
-        string = "".join(self._chars)
+        string = "".join(self._chars) # combines characters from self._char into str
         return string
 
     #####################################################
@@ -63,17 +69,7 @@ class String:
         Returns:
             an int representing the number of character in the String
         '''
-        # string_length = 0
-        # for c in self._chars:
-        #     string_length += 1
-        # return string_length
-
-        ####################################################################################################
-        # Are we allowed to just use the len() function here or do we need to get a length without using it?
-        # Thomas on 9/21/2021
-        ####################################################################################################
-
-        return len(self._chars)
+        return len(self._chars) # use length function to find lenth of character list
 
     #####################################################
     def is_empty(self) -> bool:
@@ -82,7 +78,7 @@ class String:
         Returns:
             True if no characters are present in the String; False o/w
         '''
-        if self.len() == 0:
+        if self.len() == 0: # calls .len() method from above
             return True
         else:
             return False
@@ -99,13 +95,6 @@ class String:
             True if the two objects contain exactly the same characters in
             the same order; False o/w
         '''
-
-        ##############################################################
-        # Changed variable names to snake case for consistency's sake.
-        # Updated wording of some of the comments.
-        # Thomas added on 9/21/2021
-        ##############################################################
-
         # Make sure to allow for comparison when other is either String or str
         other_string = other.__str__() if isinstance(other, String) else other
 
@@ -132,15 +121,10 @@ class String:
         Raises:
             IndexError: if the index value is invalid relative to String length
         '''
-
-        ###########################
-        # Thomas added on 9/21/2021
-        ###########################
-
         if self.len() == 0:
-            raise IndexError("String is empty")
+            raise IndexError("String is empty") # check for empty string
         elif index > self.len():
-            raise IndexError("Index out of list range")
+            raise IndexError("Index out of list range") # check for index out of range
         else:
             return self._chars[index]
 
@@ -175,13 +159,6 @@ class String:
         Returns:
             a String object represent the concatenation of the two strings
         '''
-
-        #########################################################################
-        # Changed variable labeling to snake case for consistency's sake. Renamed
-        # some variables for consistency's sake.
-        # Thomas added on 9/21/2021
-        #########################################################################
-
         #Create a new string to not modify the current one
         new_char_array = self._chars[:] #Slice to copy
         other_string  = other.__str__() if isinstance(other, String) else other #Check instance
@@ -193,36 +170,28 @@ class String:
 
     #####################################################
     def substring(self, start: int, end: int) -> 'String':
-        '''
-        Return the String object that represents the sub-string of the curernt String object.
+        ''' returns the String object that represents the sub-string of the curernt String object.
+
+        Args:
+            start: an int object to represent the starting index
+            end: an int object to represent the ending index
+
+        Returns:
+            a String object that contains the desired substring
 
         The start and end can be NEGATIVE value, it will obey the rule from python array slicing
 
         Ex: given a string a = String("1234578"), if we call
         a.substring(-1, -3), it will return String("87")
 
-        We have lots of discussions about this. We first considered the
-        negative index, and the reverse string when the end is larger than start. But then, because it creates too much complexity
-        for user to handle, we have to stick with the easiest, (also
-        efficient method), so it turns out to be just one line below.
-
-        Args:
-            other: a String or str object to append to this String
-
-        Returns:
-            a String object represent the concatenation of the two strings
+        We had a lot of dicssion about this method. At first we were doing to consider
+        negative indexes, which would require us to make assumptions about what the user
+        wanted when they entered a start that was larger than an end. We also were going
+        to consider the case in which a user inputted a mixed start/end index. However,
+        for the sake of simlicity we decided that the user would be aware of the constraints
+        before using the program. This is why the actual method is implemented using only
+        one line of code.
         '''
-
-        #################################################################
-        # Changed variable labeling to snake case for consistency's sake.
-        # Edited value error statement slightly.
-        # Thomas added on 9/21/2021
-        #################################################################
-
-        #Allow reverse order
-        # chars = self._chars
-        # new_chars = chars[start:end]
-
         # if start - end == 1:
         #     # We assume the user is smart enough to know that substring(-3,-4)
         #     # means that the start and end are the same
@@ -242,13 +211,3 @@ class String:
 
         #slice will return a copy of that array
         return String("".join(self._chars[start:end]))
-
-
-        # if start < 0 and end < 0:
-        #     #Handle case like -3 to -1
-        #     #By switching the end and start and
-        #     #take the reverse of that array
-        #     if start > end:
-        #         new_chars = reversed(chars[end: start])
-        #
-        # return String("".join(new_chars))
