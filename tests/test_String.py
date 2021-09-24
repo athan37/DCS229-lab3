@@ -242,12 +242,6 @@ def sample_String1(sample_string1):
     '''
     return String(sample_string1)
 
-###############################################################################
-# Added description of what the fixture actually does, consistent with previous
-# fixtures
-# Thomas added on 9/21/2021
-###############################################################################
-
 @pytest.fixture
 def sample_String2(sample_string2):
     ''' pytest fixture that creates a String object using sample_string2
@@ -262,10 +256,14 @@ def sample_String2(sample_string2):
 
 @pytest.fixture
 def string_from_0_to_9():
-    return "0123456789"
+    ''' pytest fixture that creates an str containing the numbers 0 through 9
 
-# NOTE: you may want/need to define more fixtures (e.g., for length-one
-#   strings?).
+    Args:
+
+    Returns:
+        an str consisting of the numbers 0 through 9
+    '''
+    return "0123456789"
 
 ###############################################################################
 
@@ -477,14 +475,6 @@ def test_is_equal_on_empty_str_and_empty_String(empty_string):
 #Testing __add__(self, other: 'String | str')
 #############################################
 
-
-################################
-#Duc Anh added on 9/20/2021
-#This is giving an error message
-#even though the test is passing
-#Thomas formatted on 9/21/2021
-################################
-
 def test_add_on_empty_String_and_empty_str(empty_string):
     ''' pytest test that adds an empty String object to an
         empty str object
@@ -502,14 +492,6 @@ def test_add_on_empty_String_and_empty_str(empty_string):
 
     assert(result == expected)
 
-###################################################
-#Duc Anh added on 9/20/2021
-#Changed variables to sample_String1/sample_String2
-#This is giving an error message even though
-#test is passing
-#Thomas formatted on 9/21/2021
-###################################################
-
 def test_add_on_String_and_other_String(sample_String1, sample_String2, sample_string1, sample_string2):
     ''' pytest test that adds 2 String objects
         (1) stores the actual and expected results of the sum
@@ -518,24 +500,10 @@ def test_add_on_String_and_other_String(sample_String1, sample_String2, sample_s
         (3) assert required by pytest
     '''
     result   = sample_String1 + sample_String2
-
-    #######################################################
-    #Does the expected result need to be entered literally?
-    #Thomas on 9/21/2021
-    #######################################################
-
     expected = String(sample_string1 + sample_string2)
     print_test(f"String('{sample_string1}') + String('{sample_string2}')", \
                result = result, expected = expected)
     assert(result == expected)
-
-#########################################
-#Duc Anh added on 9/20/2021
-#Changed sample_string1 to sample_String1
-#This is giving an error message even
-#though test is pasing
-#Thomas formatted on 9/21/2021
-#########################################
 
 def test_add_on_String_and_other_str(sample_String1, sample_string1, sample_string2):
     ''' pytest test that adds a String object to an str object
@@ -545,26 +513,10 @@ def test_add_on_String_and_other_str(sample_String1, sample_string1, sample_stri
         (3) assert required by pytest
     '''
     result   = sample_String1 + sample_string2
-
-    #######################################################
-    #Does the expected result need to be entered literally?
-    #Thomas on 9/21/2021
-    #######################################################
-
     expected = String(sample_string1 + sample_string2)
     print_test(f"String('{sample_String1}') + '{sample_string2}'", \
                result = result, expected = expected)
     assert(result == expected)
-
-#################################################
-#Duc Anh added on 9/20/2021
-#Changed sample_string1 to sample_String1
-#Fixed mistake in print_test() where
-#sample_string2 was used instead of empty_string
-#This is giving an error message even though
-#test is passing
-#Thomas formatted on 9/21/2021
-#################################################
 
 def test_add_on_String_and_empty_str(sample_String1, empty_string):
     ''' pytest test that adds a String object to an empty str object
@@ -585,13 +537,20 @@ def test_add_on_String_and_empty_str(sample_String1, empty_string):
 #Testing substring(self, start: int, end: int)
 ##############################################
 
-
-################################
-#Duc Anh added on 9/20/2021
-#This is giving an error message
-#even though the test is passing
-#Thomas formatted on 9/21/2021
-################################
+def test_substring_start_larger_than_end_with_random_string(random_string):
+    ''' pytest test that uses substring when start is larger than end
+        (1) stores the actual and expected results of the substring
+        (2) calls print_test with string version of test, result of the actual
+            test, and expected result
+        (3) assert required by pytest
+    '''
+    with pytest.raises(ValueError) as exception_info:
+        String(random_string).substring(7, 3) #This should produce value error
+    result   = type(exception_info.value)   # if correct, result should be IndexError
+    expected = ValueError
+    print_test(f"String('{sample_String1}').substring(7, 3)", \
+            result = result, expected = expected)
+    assert(result == expected)
 
 def test_substring_from_0_to_0_of_an_empty_string(empty_string):
     ''' pytest test that uses substring on an empty str object
@@ -600,17 +559,11 @@ def test_substring_from_0_to_0_of_an_empty_string(empty_string):
             test, and expected result
         (3) assert required by pytest
     '''
-    result   = String(empty_string).substring(0, 0 + 1)
+    result   = String(empty_string).substring(0, 1)
     expected = String(empty_string)
-    print_test(f"String('{empty_string}').substring(0, 1) + '{empty_string}'", \
+    print_test(f"String('{empty_string}').substring(0, 1)", \
                result = result, expected = expected)
     assert(result == expected)
-
-################################
-#Duc Anh added on 9/20/2021
-#This will not run
-#Thomas formatted on 9/21/2021
-################################
 
 def test_substring_from_3_to_7_of_a_String(sample_string1):
     ''' pytest test that uses substring on a String object
@@ -621,21 +574,8 @@ def test_substring_from_3_to_7_of_a_String(sample_string1):
     '''
     result   = String(sample_string1).substring(3, 7)
     expected = String(sample_string1[3:7])
-    print_test(f"String('{sample_String1}').substring(3, 7) + '{sample_string1}'", \
+    print_test(f"String('{sample_String1}').substring(3, 7)", \
                result = result, expected = expected)
-    assert(result == expected)
-
-
-def test_substring_from_minus_3_to_minus_7_of_a_String(string_from_0_to_9):
-    ''' pytest test that uses substring on a String object
-        (1) stores the actual and expected results of the substring
-        (2) calls print_test with string version of test, result of the actual
-            test, and expected result
-        (3) assert required by pytest
-    '''
-    result   = String(string_from_0_to_9).substring(-3, -7)
-    expected = String("6543")
-    print_test(f"String('{sample_string1}').substring(-7, -3)", result = result, expected = expected)
     assert(result == expected)
 
 def test_substring_from_minus_7_to_minus_3_of_a_String(string_from_0_to_9):
@@ -650,33 +590,34 @@ def test_substring_from_minus_7_to_minus_3_of_a_String(string_from_0_to_9):
     print_test(f"String('{string_from_0_to_9}').substring(-7, -3)", result = result, expected = expected)
     assert(result == expected)
 
-# ##############################
-# #Duc Anh added on 9/20/2021
-# #Thomas formatted on 9/21/2021
-# ##############################
+def test_substring_from_minus_3_to_minus_7_of_a_String(string_from_0_to_9):
+    ''' pytest test that uses substring on a String object
+        (1) stores the actual and expected results of the substring
+        (2) calls print_test with string version of test, result of the actual
+            test, and expected result
+        (3) assert required by pytest
+    '''
+    result   = String(string_from_0_to_9).substring(-3, -7)
+    expected = String("6543")
+    print_test(f"String('{sample_string1}').substring(-7, -3)", result = result, expected = expected)
+    assert(result == expected)
 
-# def test_substring_start_larger_than_end_with_random_string(random_string):
-#     ''' pytest test that uses substring when start is larger than end
-#         (1) stores the actual and expected results of the substring
-#         (2) calls print_test with string version of test, result of the actual
-#             test, and expected result
-#         (3) assert required by pytest
-#     '''
-#     with pytest.raises(ValueError) as exception_info:
-#         String(random_string).substring(7, 3) #This should produce value error
-#     result   = type(exception_info.value)   # if correct, result should be IndexError
-#     expected = ValueError
-#     print_test(f"String('{sample_String1}').substring(3, 7) + '{sample_string1}'", \
-#             result = result, expected = expected)
-#     assert(result == expected)
+def test_substring_from_minus_3_to_minus_3_of_a_String(random_string):
+    ''' pytest test that uses 
+
+
+
+    '''
+    result = String(random_string).substring(-3,-4)
+    expected = ""
+    print_test(f"String('{random_string}').substring(-3,-4)", \
+               result = result, expected = expected)
+    assert(result == expected)
+
+def test_substring_from_minus_3_to_7_of_a_String(string_from_0_to_9):
+
 
 ##############################################################################
-##############################################################################
-
-##########################
-#Thomas added on 9/21/2021
-##########################
-
 ##############################################################################
 
 ######################################
@@ -731,12 +672,6 @@ def test_getitem_first_on_simple_String(sample_String1):
     assert(result == expected)
 
 ##############################################################################
-##############################################################################
-
-##################################
-#Thomas added for Max on 9/21/2021
-##################################
-
 ##############################################################################
 
 #################################################
