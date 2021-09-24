@@ -181,9 +181,6 @@ class String:
 
         The start and end can be NEGATIVE value, it will obey the rule from python array slicing
 
-        Ex: given a string a = String("1234578"), if we call
-        a.substring(-1, -3), it will return String("87")
-
         We had a lot of dicssion about this method. At first we were doing to consider
         negative indexes, which would require us to make assumptions about what the user
         wanted when they entered a start that was larger than an end. We also were going
