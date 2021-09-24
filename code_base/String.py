@@ -194,13 +194,17 @@ class String:
     #####################################################
     def substring(self, start: int, end: int) -> 'String':
         '''
-
         Return the String object that represents the sub-string of the curernt String object.
 
         The start and end can be NEGATIVE value, it will obey the rule from python array slicing
 
         Ex: given a string a = String("1234578"), if we call
         a.substring(-1, -3), it will return String("87")
+
+        We have lots of discussions about this. We first considered the
+        negative index, and the reverse string when the end is larger than start. But then, because it creates too much complexity
+        for user to handle, we have to stick with the easiest, (also
+        efficient method), so it turns out to be just one line below.
 
         Args:
             other: a String or str object to append to this String
@@ -216,25 +220,28 @@ class String:
         #################################################################
 
         #Allow reverse order
-        chars = self._chars
-        new_chars = chars[start:end]
+        # chars = self._chars
+        # new_chars = chars[start:end]
 
-        if start - end == 1:
-            # We assume the user is smart enough to know that substring(-3,-4)
-            # means that the start and end are the same
-            return String("")
-        elif start < 0 and end <0:
-            if start > end:
-                new_chars = reversed(chars[end:start])
-                return String("".join(new_chars))
-            else:
-                new_chars = chars[start:end]
-                return String("".join(new_chars))
-        elif start >= 0 and end >= 0:
-                if start > end:
-                    raise ValueError("Start index cannot be larger than or equal to end index")
-                else:
-                    return String("".join(new_chars))
+        # if start - end == 1:
+        #     # We assume the user is smart enough to know that substring(-3,-4)
+        #     # means that the start and end are the same
+        #     return String("")
+        # elif start < 0 and end <0:
+        #     if start > end:
+        #         new_chars = reversed(chars[])
+        #         return String("".join(new_chars))
+        #     else:
+        #         new_chars = chars[start:end]
+        #         return String("".join(new_chars))
+        # elif start >= 0 and end >= 0:
+        #         if start > end:
+        #             raise ValueError("Start index cannot be larger than or equal to end index")
+        #         else:
+        #             return String("".join(new_chars))
+
+        #slice will return a copy of that array
+        return String("".join(self._chars[start:end]))
 
 
         # if start < 0 and end < 0:

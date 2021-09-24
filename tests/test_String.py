@@ -533,24 +533,6 @@ def test_add_on_String_and_empty_str(sample_String1, empty_string):
 
 ##############################################################################
 
-##############################################
-#Testing substring(self, start: int, end: int)
-##############################################
-
-def test_substring_start_larger_than_end_with_random_string(random_string):
-    ''' pytest test that uses substring when start is larger than end
-        (1) stores the actual and expected results of the substring
-        (2) calls print_test with string version of test, result of the actual
-            test, and expected result
-        (3) assert required by pytest
-    '''
-    with pytest.raises(ValueError) as exception_info:
-        String(random_string).substring(7, 3) #This should produce value error
-    result   = type(exception_info.value)   # if correct, result should be IndexError
-    expected = ValueError
-    print_test(f"String('{sample_String1}').substring(7, 3)", \
-            result = result, expected = expected)
-    assert(result == expected)
 
 def test_substring_from_0_to_0_of_an_empty_string(empty_string):
     ''' pytest test that uses substring on an empty str object
@@ -590,23 +572,9 @@ def test_substring_from_minus_7_to_minus_3_of_a_String(string_from_0_to_9):
     print_test(f"String('{string_from_0_to_9}').substring(-7, -3)", result = result, expected = expected)
     assert(result == expected)
 
-def test_substring_from_minus_3_to_minus_7_of_a_String(string_from_0_to_9):
-    ''' pytest test that uses substring on a String object
-        (1) stores the actual and expected results of the substring
-        (2) calls print_test with string version of test, result of the actual
-            test, and expected result
-        (3) assert required by pytest
-    '''
-    result   = String(string_from_0_to_9).substring(-3, -7)
-    expected = String("6543")
-    print_test(f"String('{sample_string1}').substring(-7, -3)", result = result, expected = expected)
-    assert(result == expected)
 
 def test_substring_from_minus_3_to_minus_3_of_a_String(random_string):
     ''' pytest test that uses 
-
-
-
     '''
     result = String(random_string).substring(-3,-4)
     expected = ""
@@ -614,15 +582,27 @@ def test_substring_from_minus_3_to_minus_3_of_a_String(random_string):
                result = result, expected = expected)
     assert(result == expected)
 
-def test_substring_from_minus_3_to_7_of_a_String(string_from_0_to_9):
-
-
 ##############################################################################
 ##############################################################################
 
 ######################################
 #Testing __getitem__(self, index: int)
 ######################################
+def test_get_item_when_index_equals_length(random_string):
+    ''' test when user tries to get an index that is larger than the length - 1
+        (1) stores the actual and expected results of the substring
+        (2) calls print_test with string version of test, result of the actual
+            test, and expected result
+        (3) assert required by pytest
+    '''
+    with pytest.raises(IndexError) as exception_info:
+        random_string[len(random_string)]
+
+    result   = type(exception_info.value)   # if correct, result should be IndexError
+    expected = IndexError
+    print_test(f"__getitem__(len(String('{random_string}''))", \
+            result = result, expected = expected)
+    assert(result == expected)
 
 def test_getitem_first_on_empty_String(empty_string):
     ''' pytest test for accessing [0] entry in an empty string
